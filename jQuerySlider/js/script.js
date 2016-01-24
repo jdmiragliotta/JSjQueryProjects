@@ -1,5 +1,13 @@
 $(document).ready(function(){
-  $("h1").addClass();
+  $(".myLink").on("mouseenter",function(){
+    $("h1").addClass("red");
+  });
+
+  $(".myLink").on("mouseleave",function(){
+    $("h1").removeClass("red");
+  });
+
+  
 
 
 
