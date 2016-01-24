@@ -13,8 +13,19 @@ $(document).ready(function(){
   // Show first slide
   $(".active").show();
 
-  // Activate next button
-  $("#next").on("click", function(){
+  // Next Handler
+  $("#next").on("click", nextSlide);
+
+  // Prev Handler
+  $("#prev").on("click", prevSlide);
+
+  // Auto Slider Handler
+  if(autoSwitch === true){
+    setInterval(nextSlide, autoSwitchSpeed);
+  }
+
+  // Switch to next slide
+  function nextSlide(){
     $(".active").removeClass("active").addClass("oldActive");
     if($(".oldActive").is(":last-child")){
       $(".slide").first().addClass("active");
@@ -24,10 +35,10 @@ $(document).ready(function(){
     $(".oldActive").removeClass("oldActive");
     $(".slide").fadeOut(speed);
     $(".active").fadeIn(speed);
-  });
+  };
 
-  // Activate previous button
-  $("#prev").on("click", function(){
+  // Switch to prev slide
+  function prevSlide(){
     $(".active").removeClass("active").addClass("oldActive");
     if($(".oldActive").is(":first-child")){
       $(".slide").last().addClass("active");
@@ -37,25 +48,8 @@ $(document).ready(function(){
     $(".oldActive").removeClass("oldActive");
     $(".slide").fadeOut(speed);
     $(".active").fadeIn(speed);
-  });
-
-  // Set Auto Slider
-
-  if(autoSwitch === true){
-    setInterval(function(){
-      $(".active").removeClass("active").addClass("oldActive");
-      if($(".oldActive").is(":last-child")){
-        $(".slide").first().addClass("active");
-      }else{
-        $(".oldActive").next().addClass("active");
-      }
-      $(".oldActive").removeClass("oldActive");
-      $(".slide").fadeOut(speed); 
-      $(".active").fadeIn(speed);
-    },autoSwitchSpeed);
-  }
-
-  // Switch to next slide
+  };
 
 
-});
+
+}); //End document.ready
