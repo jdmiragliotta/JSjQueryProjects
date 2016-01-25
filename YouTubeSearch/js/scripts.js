@@ -1,3 +1,7 @@
+$(document).ready(function(){
+  $(".fancybox").fancybox();
+});
+
 //SearchBar Handler
 
 $(function(){
@@ -168,7 +172,7 @@ function getOutput(item){
               "<img src='"+thumb+"'>"+
               "</div>"+
               "<div class='listRight'>"+
-              "<h3>"+title+"</h3>"+
+              "<h3><a class='fancybox fancybox.iframe' href='http://www.youtube.com/embed/"+videoId+"'>"+title+"</h3>"+
               "<small>By <span class='cTitle'>"+channelTitle+"</span> on "+videoDate+"</small>"+
               "<p>"+description+"</p>"+
               "</div>"+
