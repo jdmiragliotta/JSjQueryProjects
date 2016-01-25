@@ -27,4 +27,39 @@ $(function(){
       }, 400, function(){})
     }
   });
+  $("#searchForm").submit(function(e){
+    e.preventDefault();
+  })
 });
+
+function search(){
+  // Clear Results
+  $("#results").html("");
+  $("#buttons").html("");
+
+  // Get Form Input
+  q = $("#query").val();
+
+  //Run GET REquest On API
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part: "snippet, id",
+      q: q,
+      type: "video",
+      key: "AIzaSyBOa92vIF-syf8s66dLGvE7awhblgY0Hx8"},
+      function(data){
+        var nextPageToken = data.nextPageToken;
+        var prevPageToken = data.prevPageToken;
+        // Log Data
+        console.log(data);
+
+        $.each(data.items, function(i, item){
+          // Get Output
+          var output = getOutput(item);
+
+          // Display Results
+          $("#results").append(output)
+        });
+      }
+  );
+}
