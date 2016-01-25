@@ -46,7 +46,8 @@ function search(){
       part: "snippet, id",
       q: q,
       type: "video",
-      key: "AIzaSyBOa92vIF-syf8s66dLGvE7awhblgY0Hx8"},
+      key: "AIzaSyBOa92vIF-syf8s66dLGvE7awhblgY0Hx8"
+    },
       function(data){
         var nextPageToken = data.nextPageToken;
         var prevPageToken = data.prevPageToken;
@@ -60,8 +61,12 @@ function search(){
           // Display Results
           $("#results").append(output)
         });
-      }
-  );
+        
+        var buttons = getButtons(prevPageToken, nextPageToken);
+      
+        // Display Buttons
+        $("#buttons").append(buttons);
+      })
 }
 
 // Build output
@@ -75,10 +80,10 @@ function getOutput(item){
  
  //Build Output String
  var output = "<li>"+
-              "<div class='list-left'>"+
+              "<div class='listLeft'>"+
               "<img src='"+thumb+"'>"+
               "</div>"+
-              "<div class='list-right'>"+
+              "<div class='listRight'>"+
               "<h3>"+title+"</h3>"+
               "<small>By <span class='cTitle'>"+channelTitle+"</span> on "+videoDate+"</small>"+
               "<p>"+description+"</p>"+
@@ -88,4 +93,20 @@ function getOutput(item){
               "";
   return output;
 
+}
+
+// Build the buttons
+function getButtons(prevPageToken, nextPageToken){
+  if(!prevPageToken){
+    var btnOutput = "<div class='btnContainer'> "+
+                    "<button id='nextBtn' class='pagingBtn' data-token='"+nextPageToken+"'data-query='"+q+"' "+
+                    "onClick='nextPage();'>Next Page</button></div>";
+  }else{ var btnOutput = "<div class='btnContainer'>"+
+                    "<button id='prevBtn' class='pagingBtn' data-token='"+prevtPageToken+"' data-query='"+q+"' "+
+                    "onClick='prevPage();'>Prev Page</button>" +
+                    "<button id='nextBtn' class='pagingBtn' data-token='"+nextPageToken+"' data-query='"+q+"' "+
+                    "onClick='nextPage();'>Next Page</button></div>";
+
+  }
+  return btnOutput;
 }
